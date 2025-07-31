@@ -97,8 +97,6 @@ When the user enables filter `X`, the GUI should:
 
 ### Final Flow Summary (Pseudocode)
 
-(warning... composed by ChatGPT)
-
 ```csharp
 foreach (geoMap in facilityConfig.eramConfiguration.geoMaps)
 {
