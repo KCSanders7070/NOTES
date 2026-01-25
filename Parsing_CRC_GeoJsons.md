@@ -139,9 +139,10 @@ This may make display of information a bit smoother.
 
 ### References
 
-* [Understanding GeoJSON File Structure and Rules](https://github.com/KSanders7070/Understanding_CRC_GeoJsons/blob/main/Understanding_CRC_GeoJsons.md)
+* [Understanding GeoJSON File Structure and Rules](https://github.com/KCSanders7070/Understanding_CRC_GeoJsons/blob/main/Understanding_CRC_GeoJsons.md)
 * [ERAM_2_GEOJSON](https://github.com/Nikolai558/ERAM_2_GEOJSON)
 * [ERAM_2_GEOJSON>Output Formats](https://github.com/Nikolai558/ERAM_2_GEOJSON?tab=readme-ov-file#output-format-details)
 * [GeoJson by Filter](https://github.com/Nikolai558/ERAM_2_GEOJSON/blob/master/HELPERS/GeoJsonGeneratorByFilters.cs)
 * [Geojson by Attribute](https://github.com/Nikolai558/ERAM_2_GEOJSON/blob/master/HELPERS/GeoJsonGeneratorByAttributes.cs)
 * [GeoJson All-In-One](https://github.com/Nikolai558/ERAM_2_GEOJSON/blob/master/HELPERS/GeoJsonGeneratorByRaw.cs)
+
