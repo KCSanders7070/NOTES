@@ -1,103 +1,148 @@
-# New Separation Standards between VFR and IFR Aircraft
+# FE-Buddy Alias Command Guide
 
-## TL;DR
+These alias commands are made by [FE-Buddy](https://github.com/Nikolai558/FE-BUDDY) every AIRAC cycle.
 
-Read it, no excuses.
+**Contents:** [How to read this guide](#how-to-read-this-guide) · [In-Scope Reference (ISR)](#in-scope-reference-isr) · [Data Display](#data-display) · [Chart Recall](#chart-recall)
 
-Between a VFR and IFR aircraft, even in class E airspace, you now need to provide at least target resolution or have 500' of vertical separation.
+## How to read this guide
 
-No longer are you allowed to just advise advise "...targets appear likely to merge"; You are now required to provide an instruction that ensures separation.
+- Plain text, typed exactly as shown. For example: "`.apt`"
+- `<airport ID>` Angle brackets: replace them, and what is inside them, with the real value.
+- `[page]` Square brackets: optional. Replace them in the same way, or leave them out.
+- **Commands are not case-sensitive**
+  - These two work the same:
+    - `.aptdtw`
+    - `.aptDTW`
+- **Airport IDs**
+  - Use the FAA ID, not the ICAO ID, unless the command says otherwise. For example, `DTW`, not `KDTW`.
 
-Terminal:
-“Targets appear likely to merge, maintain at or below (altitude)."
+## In-Scope Reference (ISR)
 
-Enroute:
-“Targets appear likely to merge, turn (number of degrees) degrees left/right.”
+Information cards for airports, NAVAIDs and airlines (may include Virtual Airlines, if your FE has set it up).
 
-## Background
+| Syntax | Description | Example |
+| --- | --- | --- |
+| `.apt`<br>`<FAA or ICAO airport ID>` | Shows the airport's card:<br>• FAA and ICAO IDs, name, tower type and ARTCC<br>• Longest runway, elevation and traffic pattern altitude<br>• FSS, CTAF and weather frequency<br>• Attended hours (for towered airspace only)<br>• Class of airspace, with the hours it is in effect | `.aptDTW`<br>`.aptKDTW` |
+| `.nav`<br>`<NAVAID ID or name>` | Shows the NAVAID's card:<br>• ID, name, type and frequency<br>• The ARTCCs it is in, for high and low altitude airspace<br>*When entering the name, leave out spaces and special characters.*<br>*When several NAVAIDs share the ID or name, the card lists each of them.* | `.navCGT`<br>`.navCHICAGOHEIGHTS` |
+| `.id`<br>`<operator 3LD or telephony>` | Shows the aircraft operator's card:<br>• Three-letter designator (3LD), telephony, company and country<br>• A U.S. special call sign: its agency and expiration date instead<br>• A virtual airline your facility added: marked `--VA--`, with its virtual organization<br>*When entering the telephony, leave out spaces and special characters.*<br>*When several operators match, the card lists each of them.* | `.idDAL`<br>`.idDELTA`<br>`.idNASA` |
 
-While specific separation standards exist for IFR traffic, there are no defined standards for VFR to IFR aircraft separation outside of Terminal Radar Service Area (TRSA), Class C, or Class B airspace.
+## Data Display
 
-To address this, separation standards have been added to **Section 6., Basic Radar Service to VFR Aircraft~~- Terminal~~**.
+Draws an airway's or a procedure's fixes on your scope. Your facility may include only the airways and procedures in its own area.
 
-Section 6 title was amended to remove the annotation, _Terminal_, to include all facility types.
+| Syntax | Description | Example |
+| --- | --- | --- |
+| `.<airway ID>`<br>`f` | Shows every fix on the airway, NAVAIDs and airports included.<br>*CRC STARS & ERAM.* | `.J60F` |
+| `.<airport ID>`<br>`<departure>`<br>`f` | Shows every fix on the departure procedure (a SID or an obstacle departure), NAVAIDs included, with all of its transitions.<br>*CRC STARS & ERAM.* | `.dtwCLVINf` |
+| `.<airport ID>`<br>`<arrival>`<br>`f` | Shows every fix on the arrival procedure (STAR), NAVAIDs included, with all of its transitions.<br>*CRC STARS & ERAM.* | `.dtwGRAYTf` |
 
-Additionally, new language was added throughout Chapter 7. Visual, to ensure that one or both aircraft receive positive control instructions to achieve target resolution.
+**Procedure Names**
 
-## 7–2–1. VISUAL SEPARATION
+- A departure name is the first part of its FAA computer code without the version number. For example: `ROG4.RZC` is `ROG`.
+- An arrival name is the second part of its FAA computer code, without the version number. For example: `AALAN.BLAID2` is `BLAID`.
+- A chart with no computer code is spelled out in full instead, without its version number, bracketed words, or the words RNAV, OBSTACLE and COPTER; spaces and punctuation are also removed. For example, `TURNAGAIN EIGHT` at ANC is `.ancTURNAGAINf`.
 
-New **BOLD**, old ~~STRIKETHROUGH~~:
+## Chart Recall
 
-Visual separation may be applied when ~~other approved separation is assured~~ **approved separation exists** before and after the application of visual separation. **Targets must not be allowed to merge with less than 500 feet vertical separation during pilot-applied visual separation.** To ensure that ~~other separation will exist~~ **approved separation will exist**, consider aircraft performance, wake turbulence, closure rate, routes of flight, known weather conditions, and aircraft position. Weather conditions must allow the aircraft to remain within sight until ~~other separation~~ **approved separation** exists. Visual separation is not authorized when the lead aircraft is a super.
+Opens an FAA chart in your web browser, straight from the FAA's d-TPP. Every airport the FAA publishes charts for is included. A command is a period, the airport's FAA ID, the chart's code, then `c`.
 
-`Subparagraph a through a2(d), No Change`
+| Syntax | Description | Example |
+| --- | --- | --- |
+| `.<airport ID>`<br>`<approach type>`<br>`[variant]`<br>`<runway>`<br>`c` | An instrument approach. The approach type codes are below. | `.dtwI22Lc`<br>`.dtwLZ04Lc`<br>`.laxRY24Lc` |
+| `.<airport ID>`<br>`v`<br>`<visual name>`<br>`<runway>`<br>`c` | A charted visual approach: a lower-case `v` (for "Visual"), then the approach's name with spaces and punctuation left out. | `.sfovQUIETBRIDGE28Rc`<br>`.mryvRACEWAY28Lc` |
+| `.<airport ID>`<br>`<procedure>`<br>`c` | A departure, an obstacle departure or an arrival (STAR). | `.dtwCLVINc`<br>`.dtwGRAYTc`<br>`.ancTURNAGAINc` |
+| `.<airport ID>`<br>`<chart>`<br>`c` | Another of the airport's charts, such as its airport diagram. The chart codes are below. | `.dtwAPDc`<br>`.laxHSc` |
+| `.<airport ID>`<br>`<chart code>`<br>`c`<br>`[page]` | Page 2 or later of a chart with more than one page: the page number goes after the `c`. | `.dtwCLVINc2` |
 
-(e) ~~Advise the pilots if the targets appear likely to merge.~~ If the controller becomes aware that the targets will merge with less than 500 feet vertical separation, they must issue control instructions to establish approved separation. 
-EXAMPLE−
-“Targets appear likely to merge, maintain at or below (altitude)."
+### Approach type codes
 
-`Subparagraph b through b2(e), No Change`
+FE-Buddy uses the eight approach types in common use across the FAA.<br>A `/DME` approach adds `D` to its type's code, while a back course approach adds `BC`.
 
-(f) ~~Advise the pilots if the radar targets appear likely to merge.~~ If the controller becomes aware that the targets will merge with less than 500 feet vertical separation, they must issue control instructions to establish approved separation.
-EXAMPLE−
-“Targets appear likely to merge, turn (number of degrees) degrees left/right.”
+| Approach | Code | Example |
+| --- | --- | --- |
+| RNAV (GPS), RNAV (RNP) | `R` | `.laxRZ07Rc` |
+| ILS | `I` | `.dtwI22Lc` |
+| LOC | `L` | `.dtwL22Lc` |
+| VOR | `O` | `.cdbO15c` |
+| NDB | `N` | `.iliN36c` |
+| LDA | `D` | `.dcaD19c` |
+| GPS | `G` | `.fotG11c` |
+| TACAN | `T` | `.pdxT28Lc` |
+| LOC/DME | `LD` | `.fulLD24c` |
+| VOR/DME | `OD` | `.talOD07c` |
+| NDB/DME | `ND` | `.adkND23c` |
+| LDA/DME | `DD` | `.ekoDD24c` |
+| LOC BC | `LBC` | `.cdbLBC33c` |
+| LOC/DME BC | `LDBC` | `.griLDBC17c` |
 
-PHRASEOLOGY−
-(ACID) **TRAFFIC**, (clock position and distance), (direction)−**BOUND**, (type of aircraft), **ON CONVERGING COURSE, HAS YOU IN SIGHT AND WILL MAINTAIN VISUAL SEPARATION.**
+### Reading an approach's command
 
-(ACID) **TRAFFIC**, (clock position and distance), (direction)−**BOUND**, (type of aircraft), **TARGETS APPEAR LIKELY TO MERGE, TURN LEFT/RIGHT HEADING (degrees).**
+- **One command per approach**
+  - A chart for more than one approach has a command for each:
+    - ILS OR LOC RWY 22L at DTW is both:
+      - `.dtwI22Lc`
+      - `.dtwL22Lc`
+- **Variant letters** (X, Y, Z...)
+  - Come after the type code.
+  - If the FAA indicates the variant on only one of the approaches on the same chart, the command applies the variant to both:
+    - ILS Z OR LOC RWY 04L is both:
+      - `.dtwIZ04Lc`
+      - `.dtwLZ04Lc`
+- **Runways** are written exactly as the chart's name prints them
+  - RNAV (RNP) Z RWY 07R at LAX is:
+    - `.laxRZ07Rc`
+  - A chart for two runways has a command for each
+    - TIPP TOE VISUAL RWY 28L/R at SFO is both:
+      - `.sfovTIPPTOE28Lc`
+      - `.sfovTIPPTOE28Rc`
+- **Circling approaches**
+  - Keep their letter where the runway would be, for example VOR-A at PDX is:
+    - `.pdxOAc`
+- **RNAV**
+  - `R` = RNAV, regardless of what the brackets say, (GPS) or (RNP)
+  - Only a GPS approach with no "RNAV" in its name is `G`.
 
-## Renumber Paragraphs
+### Charted visual approaches
 
-Current 7110.65 Paragraphs `7–6–2` through `7–6–12`, will now be `7–6–4` through `7–6–14`.
+- The approach's name is spelled out in full, without the words VISUAL and RWY; spaces and punctuation are removed.
+- Its runway comes right after the name.
 
-## New Ch.7 Sec.6 Paragraphs
+| Airport | Chart | Command |
+| --- | --- | --- |
+| SFO | QUIET BRIDGE VISUAL RWY 28R | `.sfovQUIETBRIDGE28Rc` |
+| MRY | RACEWAY VISUAL RWY 28L | `.mryvRACEWAY28Lc` |
+| LGB | LA RIVER VISUAL RWY 12 | `.lgbvLARIVER12c` |
 
-### 7-6-2. SEPARATION
+### Departures, obstacle departures and arrivals
 
-Separate VFR aircraft from IFR aircraft by any one of the following:
+- A departure name is the first part of its FAA computer code without the version number. For example: `ROG4.RZC` is `ROG`.
+- An arrival name is the second part of its FAA computer code, without the version number. For example: `AALAN.BLAID2` is `BLAID`.
+- A chart with no computer code is spelled out in full instead, without its version number, bracketed words, or the words RNAV, OBSTACLE and COPTER; spaces and punctuation are also removed. For example, `TURNAGAIN EIGHT` at ANC is `.ancTURNAGAINc`.
 
-**a.** Visual separation as specified in paragraph 7-2-1, Visual Separation, paragraph 7-4-2, Vectors for Visual Approach, and paragraph 7-6-7, Sequencing.
+### Other charts
 
-**NOTE-**  
-Issue wake turbulence cautionary advisories in accordance with paragraph 2-1-20, Wake Turbulence Cautionary Advisories.
+| Chart | Code | Example |
+| --- | --- | --- |
+| Airport diagram | `APD` | `.dtwAPDc` |
+| Takeoff minimums | `TM` | `.dtwTMc` |
+| Diverse vector area | `DVA` | `.laxDVAc` |
+| Radar minimums | `RM` | `.hsvRMc` |
+| Hot spots | `HS` | `.laxHSc` |
+| LAHSO | `LAHSO` | `.burLAHSOc` |
 
-**b.** 500 feet vertical separation.
+Takeoff minimums, diverse vector areas and radar minimums open straight to the airport's own page of the FAA's shared document.
 
-**c.** Target resolution.
+### Charts with no command
 
-1. Except when ISR is being displayed.
+- High-altitude (HI-) and COPTER charts
+- PRM approaches
+- Category II and III approaches, and other special-authorization approaches
+- CONVERGING approaches
+- GLS approaches (the other approaches on the same chart still have a command)
+- Numbered approaches, such as VOR-1
+- Attention All Users pages (AAUP)
+- Alternate minimums
 
-2. Except when established in a local VFR airport traffic pattern, if the lateral distance between two identified targets will reduce below 1 ½ miles laterally, each aircraft involved must be on an assigned course or heading that ensures target resolution.
+---
 
-**NOTE-**
-
-1. Aircraft established in a local VFR airport traffic pattern are considered to be under positive control.
-
-2. Apply the provisions of paragraph 5-5-4, Minima, subparagraphs g and h, when wake turbulence separation is required.
-
-**REFERENCE-**  
-FAA Order JO 7110.65, Para 7-2-1, Visual Separation.  
-P/CG Term - Positive Control.
-
-## 7–6–3. HELICOPTER/POWERED LIFT TRAFFIC
-
-VFR helicopters and powered-lift aircraft need not be separated from VFR or IFR helicopters or powered-lift aircraft. Traffic advisories and safety alerts must be issued as appropriate.
-
-## New Separation Standards for TRSA, Class B and C
-
-`7-7-3`, `7-8-3`, & `7-9-4`
-
-`...`
-
-**c.** Target resolution.
-
-1. Except when ISR is being displayed.
-
-2. **Except when established in a local VFR airport traffic pattern, if the lateral distance between two identified targets will reduce below 1 ½ miles laterally, each aircraft involved must be on an assigned course or heading that ensures target resolution.**
-
-**NOTE-**
-
-1. **Aircraft established in a local VFR airport traffic pattern are considered to be under positive control.**
-
-`...`
+*Page updated on 3 October 2026.*
